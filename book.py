@@ -4,25 +4,26 @@
 import string
 import random
 import json
+import codecs
 
-# example usage of this file
-def USAGE():
+def test1():
    import book
    import json
+
+   # as regular strings (why?)
    book.bookToJSON("pg2009.txt", "oos.json")
-   j = open ("oos.json")
+   j = codecs.open("oos.json", "r", "utf-8")
+
+   # as u'strings (why?)
    words = json.loads(j.read())
    return randomWords(words,5)
 
-def bookToJSON(book,json):
-   return saveBookAsUniqueWords(book, json)
-
 # file with text -> file with json array
-def saveBookAsUniqueWords(bookPath, wordsPath):
+def bookToJSON(bookPath, wordsPath):
    words = openBook(bookPath)
    uwords = uniqueWords(words)
    jwords = json.dumps(uwords, indent=3) + "\n"
-   out = open(wordsPath, "w")
+   out = codecs.open(wordsPath, "w", "utf-8")
    out.write(jwords)
    out.close()
 
@@ -51,7 +52,7 @@ def randomWords(book, nn):
 
 # import the book
 def openBook(path):
-   src = open(path)
+   src = codecs.open(path, "r", "utf-8")
    text = src.read()
    src.close()
    text_ = "".join(map(replacements, text))
@@ -59,6 +60,7 @@ def openBook(path):
    return filter(notEmpty, filter(freqFilter, map(adjustCase, words)))
 
 def replacements(ch):
+   # I don't think this is unicode safe yet...
    if ch in string.punctuation:
       return " "
    elif not ch in string.printable:
@@ -67,9 +69,7 @@ def replacements(ch):
       return ch
 
 def adjustCase(word):
-   filtered = word
-   converted = str.lower(filtered)
-   return converted
+   return word.lower()
 
 def notEmpty(word):
    # remove empty words
