@@ -3,12 +3,40 @@
 
 import string
 import random
+import json
 
 # example usage of this file
 def USAGE():
-   exec open ("book.py")
-   words = openBook("/home/kevin/Desktop/pg2009.txt")  # Darwin's Origin of Species, from Gutenberg
-   randomWords(words,5)
+   import book
+   import json
+   book.bookToJSON("pg2009.txt", "oos.json")
+   j = open ("oos.json")
+   words = json.loads(j.read())
+   return randomWords(words,5)
+
+def bookToJSON(book,json):
+   return saveBookAsUniqueWords(book, json)
+
+# file with text -> file with json array
+def saveBookAsUniqueWords(bookPath, wordsPath):
+   words = openBook(bookPath)
+   uwords = uniqueWords(words)
+   jwords = json.dumps(uwords, indent=3) + "\n"
+   out = open(wordsPath, "w")
+   out.write(jwords)
+   out.close()
+
+# unique words
+def uniqueWords(words):
+   uniques = {}
+
+   for w in words:
+      if w in uniques:
+         uniques[w] += 1
+      else:
+         uniques[w] = 1
+
+   return uniques.keys()
 
 # grab some words
 def randomWords(book, nn):
@@ -23,7 +51,9 @@ def randomWords(book, nn):
 
 # import the book
 def openBook(path):
-   text = open(path).read()
+   src = open(path)
+   text = src.read()
+   src.close()
    text_ = "".join(map(replacements, text))
    words = text_.split()
    return filter(notEmpty, filter(freqFilter, map(adjustCase, words)))
@@ -61,6 +91,6 @@ def freqFilter(word):
       "even", "new", "want", "because", "any", "these", "give", "day", "most", "us"
    ]
 
-   return not word in mostCommon[0:50]
+   return not word in mostCommon
 
 
