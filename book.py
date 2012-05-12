@@ -2,21 +2,19 @@
 # May 2012
 
 import string
-import random
 import json
 import codecs
 
 def test1():
-   import book
-   import json
-
    # as regular strings (why?)
    book.bookToJSON("pg2009.txt", "oos.json")
-   j = codecs.open("oos.json", "r", "utf-8")
+   words = loadWordsJSON("oos.json")
 
-   # as u'strings (why?)
+def loadWordsJSON(path):
+   j = codecs.open(path, "r", "utf-8")
    words = json.loads(j.read())
-   return randomWords(words,5)
+   j.close()
+   return words
 
 # file with text -> file with json array
 def bookToJSON(bookPath, wordsPath):
@@ -38,17 +36,6 @@ def uniqueWords(words):
          uniques[w] = 1
 
    return uniques.keys()
-
-# grab some words
-def randomWords(book, nn):
-   blen = len(book)
-   words = []
-
-   for ii in range(nn):
-      rnd = random.randrange(0, blen)
-      words.append(book[rnd])
-
-   return words
 
 # import the book
 def openBook(path):
