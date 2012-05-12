@@ -1,0 +1,87 @@
+Only in scrypt-mod: build
+diff -ru scrypt-0.5.3/src/scrypt2.c scrypt-mod/src/scrypt2.c
+--- scrypt-0.5.3/src/scrypt2.c	2011-02-19 06:56:07.000000000 -0800
++++ scrypt-mod/src/scrypt2.c	2012-05-12 01:19:06.933753937 -0700
+@@ -27,6 +27,7 @@
+ #include <Python.h>
+ 
+ #include "scryptenc/scryptenc.h"
++#include "crypto/crypto_scrypt.h"
+ 
+ static PyObject *ScryptError;
+ 
+@@ -139,11 +140,74 @@
+     return value;
+ }
+ 
++static PyObject *scrypt_hash(PyObject *self, PyObject *args, PyObject* kwargs) {
++    PyStringObject *password,   *salt;
++    size_t          passwordlen, saltlen;
++    int paramerror, hasherror;
++    uint64_t N = 1 << 14;
++    uint32_t r = 8;
++    uint32_t p = 1;
++    uint8_t *outbuf;
++    size_t   outbuflen;
++
++    static char *g2_kwlist[] = {"password", "salt", "N", "r", "p", NULL};
++
++    // note, this assumes uint32_t is unsigned long (k)
++    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "SS|Kkk", g2_kwlist,
++                                                    &password, &salt,
++                                                    &N, &r, &p)) {
++        return NULL;
++    }
++
++    Py_INCREF(password);
++    Py_INCREF(salt);
++
++    passwordlen = PyString_Size((PyObject*) password);
++    saltlen = PyString_Size((PyObject*) salt);
++
++    // note, output buffer must be less than (2^32-1) * 32
++    outbuf = PyMem_Malloc(64);
++    outbuflen = 64;
++
++    Py_BEGIN_ALLOW_THREADS;
++
++    if ( r * p >= (1 << 30) || N <= 1 || (N & (N-1)) != 0) {
++        paramerror = -1;
++    } else {
++        paramerror = 0;
++        hasherror = crypto_scrypt((uint8_t *) PyString_AsString((PyObject *) password), passwordlen,
++                                  (uint8_t *) PyString_AsString((PyObject *) salt),     saltlen,
++                                  N, r, p,
++                                  outbuf, outbuflen);
++    }
++   
++    Py_END_ALLOW_THREADS;
++
++    Py_DECREF(password);
++    Py_DECREF(salt);
++
++    PyObject *value = NULL;
++    if (paramerror != 0) {
++        PyErr_Format(ScryptError, "%s",
++            "hash parameters are wrong (r*p should be < 2**30, and N should be a power of two > 1)");
++    } else {
++        if (hasherror != 0) {
++            PyErr_Format(ScryptError, "%s", "could not compute hash");
++        } else {
++            value = Py_BuildValue("z#", outbuf, outbuflen);
++        }
++    }
++    PyMem_Free(outbuf);
++    return value;
++}
++
+ static PyMethodDef ScryptMethods[] = {
+     { "encrypt", (PyCFunction) scrypt_encrypt, METH_VARARGS | METH_KEYWORDS,
+ 			"encrypt(input, password, maxtime=300, maxmem=0, maxmemfrac=0.5): str; encrypt a string" },
+     { "decrypt", (PyCFunction) scrypt_decrypt, METH_VARARGS | METH_KEYWORDS,
+ 			"decrypt(input, password, maxtime=300, maxmem=0, maxmemfrac=0.5): str; decrypt a string" },
++    { "hash", (PyCFunction) scrypt_hash, METH_VARARGS | METH_KEYWORDS,
++			"hash(password, salt, N=2**14, r=8, p=1): str; compute a 64-byte scrypt hash" },
+     { NULL, NULL, 0, NULL }
+ };
+ 
