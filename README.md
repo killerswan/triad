@@ -1,4 +1,4 @@
-Kevin Cantu, May 2012
+Kevin Cantu, June 2012
 
 Example usage, in Python:
 
@@ -8,6 +8,6 @@ import password
 
 book.bookToJSON('pg2009.txt', 'demo.json')
 words = book.loadWordsJSON('demo.json')
-password.generate(words, 'one', 'two')       # u'fill greyhounds simile endless'
+password.generate(words, 'otter', 'pop')     # u'summon feet leafstalks tested'
 ```
 

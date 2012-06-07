@@ -1,23 +1,28 @@
-# Kevin Cantu
-# May 2012
+'''
+Kevin Cantu
+June 2012
+'''
 
 import string
 import json
 import codecs
 
-def test1():
-   # as regular strings (why?)
-   book.bookToJSON("pg2009.txt", "oos.json")
-   words = loadWordsJSON("oos.json")
-
 def loadWordsJSON(path):
+   '''
+   Read a JSON file of words.
+   '''
+
    j = codecs.open(path, "r", "utf-8")
    words = json.loads(j.read())
    j.close()
    return words
 
-# file with text -> file with json array
 def bookToJSON(bookPath, wordsPath):
+   '''
+   Read a file with text (a book) and 
+   write out the vocabulary into a file of JSON.
+   '''
+
    words = openBook(bookPath)
    uwords = uniqueWords(words)
    jwords = json.dumps(uwords, indent=3) + "\n"
@@ -25,7 +30,6 @@ def bookToJSON(bookPath, wordsPath):
    out.write(jwords)
    out.close()
 
-# unique words
 def uniqueWords(words):
    uniques = {}
 
@@ -37,7 +41,6 @@ def uniqueWords(words):
 
    return uniques.keys()
 
-# import the book
 def openBook(path):
    src = codecs.open(path, "r", "utf-8")
    text = src.read()
