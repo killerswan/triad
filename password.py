@@ -3,27 +3,37 @@ Kevin Cantu
 June 2012
 '''
 
+import string
 import binascii
 import scrypt
 
-def generate(vocab, pass0, pass1, nn=5, sep=False):
+def generate(vocab, pass0, pass1, nn=5):
    '''
-   Use scrypt's hash function on our password/salt
-   to generate 64 bytes of so-called entropy.
-   (Strictly speaking, we can only work with whatever entropy
-   is in the passwords you specify, so make them wordy.)
-   
-   Then use these to choose N (default: 4) of the vocabulary words.
+   Use scrypt's hash function on our password/salt to generate 64 bytes
+   of so-called entropy.  Then use this to choose several (default: 4)
+   of the vocabulary words.
+
+   In the special case where one of the characters of the second password
+   is a number, bytes of capitalized hex (e.g. 'C7') will be inserted
+   between words.
 
    Note: asking for more words doesn't does not change the hash function call,
    just the word selection, so an exception will be thrown if you ask
    for too many words.
+
+   Vocabulary can be supplied from any source you desire.  The results aren't
+   as secure as random passwords, but seem better than what most people use.
    '''
 
    vocabSize = len(vocab)
    words = []
 
    entropy = kindaRandomOracle(pass0, pass1)
+
+   sep = False
+   for ch in pass1:
+      if ch in string.digits:
+         sep = True
 
    if sep:
       # leave room for hex octets between the words

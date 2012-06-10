@@ -1,5 +1,12 @@
 Kevin Cantu, June 2012
 
+This password generator uses scrypt's hash function to choose several
+words from a given source of vocabulary.
+
+In the special case where one of the characters of the second password
+is a number, bytes of capitalized hex (e.g. 'C7') will be inserted
+between words.
+
 Example Python usage, with Darwin's Origin of Species for vocabulary:
 
 ```python
@@ -12,16 +19,12 @@ words = book.loadWordsJSON('demo.json')
 password.generate(words, 'lincoln', 'vampire-slayer')
 # u'cows mounting molecules theoretically oftener'
 
-password.generate(words, 'lincoln', 'vampire-slayer', nn=3, sep=True)
-# u'cows 3F changes 9F province'
-```
+password.generate(words, 'lincoln', 'vampire-slayer', nn=3)
+# u'cows changes province'
 
-I think we can now easily satisfy Apple:
-(1) have at least one letter,
-(2) have at least one capital letter,
-(3) have at least one number,
-(4) not contain more than 3 consecutive identical characters,
-(5) be at least 8 characters.
+password.generate(words, 'lincoln', 'vampire-slayer7', nn=3)
+# u'destroy 48 rubs 36 prepotency'
+```
 
 TODO: an Android app...
 
