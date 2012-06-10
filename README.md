@@ -16,12 +16,12 @@ password.generate(words, 'lincoln', 'vampire-slayer', nn=3, sep=True)
 # u'cows 3F changes 9F province'
 ```
 
-Update: I think we can now easily satisfy Apple:
+I think we can now easily satisfy Apple:
 (1) have at least one letter,
 (2) have at least one capital letter,
 (3) have at least one number,
 (4) not contain more than 3 consecutive identical characters,
 (5) be at least 8 characters.
 
-Also: an Android app...
+TODO: an Android app...
 
