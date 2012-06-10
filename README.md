@@ -9,12 +9,14 @@ import password
 book.bookToJSON('pg2009.txt', 'demo.json')
 words = book.loadWordsJSON('demo.json')
 
-password.generate(words, 'otter', 'pop')
-# u'summon feet leafstalks tested'
+password.generate(words, 'lincoln', 'vampire-slayer')
+# u'cows mounting molecules theoretically oftener'
+
+password.generate(words, 'lincoln', 'vampire-slayer', nn=3, sep=True)
+# u'cows 3F changes 9F province'
 ```
 
-Now I need to implement a mechanism to optionally
-generate passwords like those required for AppleIDs:
+Update: I think we can now easily satisfy Apple:
 (1) have at least one letter,
 (2) have at least one capital letter,
 (3) have at least one number,

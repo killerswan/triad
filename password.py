@@ -6,7 +6,7 @@ June 2012
 import binascii
 import scrypt
 
-def generate(vocab, pass0, pass1, nn=4):
+def generate(vocab, pass0, pass1, nn=5, sep=False):
    '''
    Use scrypt's hash function on our password/salt
    to generate 64 bytes of so-called entropy.
@@ -24,23 +24,47 @@ def generate(vocab, pass0, pass1, nn=4):
    words = []
 
    entropy = kindaRandomOracle(pass0, pass1)
-   bytesPerWord = len(entropy) / nn
+
+   if sep:
+      # leave room for hex octets between the words
+      bytesPerWord = (len(entropy) - (nn-1)) / nn
+      mm = nn * 2 - 1
+   else:
+      bytesPerWord =  len(entropy) / nn
+      mm = nn
+
    wordSize = 2 ** (bytesPerWord * 8)
 
    # if we would lose too much entropy
+   # i.e., 21 words or less with octets between, or 32 words or less without
    if wordSize < vocabSize:
       raise Exception('Too many words requested...')
 
-   for ii in range(nn):
-      # we lose entropy here be dropping words off the end
-      key = entropy[ bytesPerWord * (ii) : bytesPerWord * (ii + 1) ]
+   start = 0
+   end = 0
 
-      # we lose more entropy here by cramming a number into this smaller range
-      # less significant digits end up getting dropped
-      scaledKey = str2int(key) * vocabSize / wordSize
+   for ii in range(mm):
+      # hex octet separators
+      if sep and ii % 2 == 1:
+         start = end
+         end   = end + 1
+         byte = binascii.hexlify(entropy[int(start)])
+         words.append(byte.upper())
 
-      # c'est la vie
-      words.append(vocab[scaledKey])
+      # words
+      else:
+         start = end
+         end   = end + bytesPerWord
+
+         # we lose entropy here be dropping words off the end
+         key = entropy[start:end] 
+         # we lose more entropy here by cramming a number into this smaller range
+         # less significant digits end up getting dropped
+         scaledKey = str2int(key) * vocabSize / wordSize
+
+         # c'est la vie
+         words.append(vocab[scaledKey])
+
 
    return ' '.join(words)
    
