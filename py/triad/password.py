@@ -8,7 +8,7 @@ import binascii
 import scrypt
 import words
 
-def generate(vocab, pass0, pass1, nn=5):
+def generate(vocab, pass0, pass1, n=5):
    '''
    Use scrypt's hash function on our password/salt to generate 64 bytes
    of so-called entropy.  Then use this to choose several (default: 4)
@@ -25,6 +25,7 @@ def generate(vocab, pass0, pass1, nn=5):
    Vocabulary can be supplied from any source you desire.  The results aren't
    as secure as random passwords, but seem better than what most people use.
    '''
+   nn = n
 
    vocabSize = len(vocab)
    words = []

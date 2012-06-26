@@ -15,6 +15,7 @@
 *.eventlog
 dist/
 cabal-dev/
+*.pyc
 
 *.token
 MANIFEST

@@ -7,28 +7,29 @@ In the special case where one of the characters of the second password
 is a number, bytes of capitalized hex (e.g. 'C7') will be inserted
 between words.
 
-Example Python usage, with Darwin's Origin of Species for vocabulary:
-
-```python
-import triad.words_en
-
-triad.words_en.bookToWords('pg2009.txt', 'demo.json')
+To install the Python version in Linux, and then start the demo
+(with Darwin's Origin of Species for vocabulary):
+```bash
+cd py
+sudo python setup.py install
+cd ..
+python
 ```
 
+Then, in Python:
 ```python
-import triad.words
-import triad.password
+import triad.demo as demo
 
-words = triad.words.loadWords('demo.json')
+gen = demo.makeGenerator('books/pg2009.txt')
 
-triad.password.generate(words, 'lincoln', 'vampire-slayer')
+gen('lincoln', 'vampire-slayer')
 # u'cows mounting molecules theoretically oftener'
 
-triad.password.generate(words, 'lincoln', 'vampire-slayer', nn=3)
+gen('lincoln', 'vampire-slayer', n=3)
 # u'cows changes province'
 
-triad.password.generate(words, 'lincoln', 'vampire-slayer7', nn=3)
-# u'destroy 48 rubs 36 prepotency'
+gen('lincoln', 'vampire-slayer0', n=3)
+#u'tried 96 stationary 0E stump'
 ```
 
 TODO: an Android app...
