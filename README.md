@@ -10,24 +10,24 @@ between words.
 Example Python usage, with Darwin's Origin of Species for vocabulary:
 
 ```python
-import words_en
+import triad.words_en
 
-words_en.bookToWords('pg2009.txt', 'demo.json')
+triad.words_en.bookToWords('pg2009.txt', 'demo.json')
 ```
 
 ```python
-import words
-import password
+import triad.words
+import triad.password
 
-words = words.loadWords('demo.json')
+words = triad.words.loadWords('demo.json')
 
-password.generate(words, 'lincoln', 'vampire-slayer')
+triad.password.generate(words, 'lincoln', 'vampire-slayer')
 # u'cows mounting molecules theoretically oftener'
 
-password.generate(words, 'lincoln', 'vampire-slayer', nn=3)
+triad.password.generate(words, 'lincoln', 'vampire-slayer', nn=3)
 # u'cows changes province'
 
-password.generate(words, 'lincoln', 'vampire-slayer7', nn=3)
+triad.password.generate(words, 'lincoln', 'vampire-slayer7', nn=3)
 # u'destroy 48 rubs 36 prepotency'
 ```
 
