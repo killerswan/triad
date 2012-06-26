@@ -10,11 +10,16 @@ between words.
 Example Python usage, with Darwin's Origin of Species for vocabulary:
 
 ```python
-import book
+import words_en
+
+words_en.bookToWords('pg2009.txt', 'demo.json')
+```
+
+```python
+import words
 import password
 
-book.bookToJSON('pg2009.txt', 'demo.json')
-words = book.loadWordsJSON('demo.json')
+words = words.loadWords('demo.json')
 
 password.generate(words, 'lincoln', 'vampire-slayer')
 # u'cows mounting molecules theoretically oftener'

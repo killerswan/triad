@@ -6,6 +6,7 @@ June 2012
 import string
 import binascii
 import scrypt
+import words
 
 def generate(vocab, pass0, pass1, nn=5):
    '''

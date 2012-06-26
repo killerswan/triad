@@ -7,17 +7,7 @@ import string
 import json
 import codecs
 
-def loadWordsJSON(path):
-   '''
-   Read a JSON file of words.
-   '''
-
-   j = codecs.open(path, "r", "utf-8")
-   words = json.loads(j.read())
-   j.close()
-   return words
-
-def bookToJSON(bookPath, wordsPath):
+def bookToWords(bookPath, wordsPath):
    '''
    Read a file with text (a book) and 
    write out the vocabulary into a file of JSON.

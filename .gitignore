@@ -17,4 +17,5 @@ dist/
 cabal-dev/
 
 *.token
+MANIFEST
 
