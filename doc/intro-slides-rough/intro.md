@@ -16,11 +16,11 @@ Trust nobody.  Make a user-focused tool which makes it painless to avoid passwor
 "Children warned name of first pet should contain 8 characters and a digit" [1]
 
 
-# Existing tools (DEL)
-http://updates.oplop.mobi/
-https://www.pwdhash.com/
-http://supergenpass.com/
-http://ypassword.espozito.com/
+# Existing tools
+* http://updates.oplop.mobi/
+* https://www.pwdhash.com/
+* http://supergenpass.com/
+* http://ypassword.espozito.com/
 
 #
 How many people know your password?
@@ -31,8 +31,8 @@ How much do you trust them?
 # 1. passwords are everywhere
 
 Alternatives exist, but passwords remain:
-- fingerprints, retina scans, DNA sequencing, other biometrics
-- smart cards, public key crypto, etc.
+* fingerprints, retina scans, DNA sequencing, other biometrics
+* smart cards, public key crypto, etc.
 
 All those are a lot more work.
 
@@ -101,9 +101,9 @@ disk failure?
 You trust them?  You give a copy of all your keys to one person?
 
 # 14. Other proposals:
-legal escrow
-bank safe deposit box
-US Marine Corp. defended physical building with a safe
+* legal escrow
+* bank safe deposit box
+* US Marine Corp. defended physical building
 
 
 
@@ -124,11 +124,18 @@ e. easy to type fast
 
 # 18. TODO
 
+Make a GUI app.
+
 
 
 # Some outstanding questions
 
 Before I carve version 1.0 in stone (or, rather, Java), I want to get some feedback about how this can or should work in languages like Mandarin which are less likely to use word separators.  Will Mandarin, for example, break gracefully on each glyph?  Would speakers benefit from larger numbers of generated words (e.g., n=14 instead of n=6)?  How are numbers typically written?  Will the optional hex bytes work and be easy enough to write and memorize?  Will super-common characters and punctuation be easy to filter from the word lists?
+
+
+# Biggest flaw?
+
+People don't like to type on phones.  (Srsly.)
 
 
 
