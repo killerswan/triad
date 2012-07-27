@@ -6,9 +6,8 @@ June 2012
 import string
 import binascii
 import scrypt
-import words
 
-def generate(vocab, pass0, pass1, n=5):
+def generate(vocab, key0, key1, n=5):
    '''
    Use scrypt's hash function on our password/salt to generate 64 bytes
    of so-called entropy.  Then use this to choose several (default: 4)
@@ -30,10 +29,10 @@ def generate(vocab, pass0, pass1, n=5):
    vocabSize = len(vocab)
    words = []
 
-   entropy = kindaRandomOracle(pass0, pass1)
+   entropy = kindaRandomOracle(key0, key1)
 
    sep = False
-   for ch in pass1:
+   for ch in key1:
       if ch in string.digits:
          sep = True
 
@@ -80,7 +79,7 @@ def generate(vocab, pass0, pass1, n=5):
 
    return ' '.join(words)
    
-def kindaRandomOracle(pw0, pw1):
+def kindaRandomOracle(key0, key1):
    '''
    Use scrypt to generate a hash based on
    the two passwords or password/salt you specify.
@@ -89,7 +88,7 @@ def kindaRandomOracle(pw0, pw1):
    But it is scrypt.
    '''
 
-   val = scrypt.hash(pw0, pw1)
+   val = scrypt.hash(key0, key1)
    return val
 
 def str2int(ss):

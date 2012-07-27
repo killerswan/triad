@@ -1,7 +1,7 @@
-Kevin Cantu, June 2012
+Kevin Cantu, July 2012
 
 This password generator uses scrypt's hash function to choose several
-words from a given source of vocabulary.
+words using a given source of vocabulary, given only two keyphrases.
 
 In the special case where one of the characters of the second password
 is a number, bytes of capitalized hex (e.g. 'C7') will be inserted
@@ -18,9 +18,9 @@ python
 
 Then, in Python:
 ```python
-import triad.demo as demo
+from triad.demo import makeGenerator
 
-gen = demo.makeGenerator('books/pg2009.txt')
+gen = makeGenerator('books/pg2009.json')
 
 gen('lincoln', 'vampire-slayer')
 # u'cows mounting molecules theoretically oftener'
@@ -32,5 +32,56 @@ gen('lincoln', 'vampire-slayer0', n=3)
 #u'tried 96 stationary 0E stump'
 ```
 
-TODO: an Android app...
+Key features to note:
+* These passwords tend to be easier to memorize, and longer.
+* They're not really random, so you can recreate them.
+* They're not stored anywhere.
+* Because scrypt is being used (with the two keyphrases),
+  if a generated password is compromised your other passwords are
+  still relatively safe.
+
+That is, even if they can guess one of the keyphrases,
+it will still be moderately expensive to brute force and
+find the generated password.
+
+Say, for example, you used the following to generate a LinkedIn password.
+```
+>>> gen('cows mounting molecules theoretically oftener', 'linkedin')
+u'coat solicit provisions orchidaceous asiatic'
+```
+
+Then somebody may discover that password,
+"coat solicit provisions orchidaceous asiatic", and maybe even
+can guess that you used "linkedin".  Therefore they might try to
+use this algorithm to brute force your first keyphrase, or directly
+try to guess your Twitter password using the second keyphrase "twitter".
+
+If a hash designed for speed like SHA or MD5 was used, this wouldn't be
+very hard.  But because we're using *scrypt*, the following may get
+expensive.
+```
+def guessFirstKey(table):
+   for x in table:
+      if gen(x, 'linkedin') == u'coat solicit provisions orchidaceous asiatic':
+         return x
+
+key0 = guessFirstKey(...)
+gen(key0, 'twitter')
+```
+
+Alternatively, they might know which vocabulary you used (e.g., Darwin's
+book from this demo), and guess the words in it (assuming the same number
+as were in the discovered password).
+With the vocabulary list I've included from Darwin's Origin of Species,
+the following will require somebody to test over 9000^5 passwords.
+```
+for a in vocab:
+   for b in vocab:
+      for c in vocab:
+         for d in vocab:
+            for e in vocab:
+               " ".join([a,b,c,d,e])
+```
+
+I welcome criticism, though, via me@kevincantu.org!
 
