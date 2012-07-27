@@ -45,9 +45,9 @@ it will still be moderately expensive to brute force and
 find the generated password.
 
 Say, for example, you used the following to generate a LinkedIn password.
-```
->>> gen('cows mounting molecules theoretically oftener', 'linkedin')
-u'coat solicit provisions orchidaceous asiatic'
+```python
+gen('cows mounting molecules theoretically oftener', 'linkedin')
+# u'coat solicit provisions orchidaceous asiatic'
 ```
 
 Then somebody may discover that password,
@@ -59,7 +59,7 @@ try to guess your Twitter password using the second keyphrase "twitter".
 If a hash designed for speed like SHA or MD5 was used, this wouldn't be
 very hard.  But because we're using *scrypt*, the following may get
 expensive.
-```
+```python
 def guessFirstKey(table):
    for x in table:
       if gen(x, 'linkedin') == u'coat solicit provisions orchidaceous asiatic':
@@ -74,7 +74,7 @@ book from this demo), and guess the words in it (assuming the same number
 as were in the discovered password).
 With the vocabulary list I've included from Darwin's Origin of Species,
 the following will require somebody to test over 9000^5 passwords.
-```
+```python
 for a in vocab:
    for b in vocab:
       for c in vocab:
