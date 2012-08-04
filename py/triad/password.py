@@ -88,7 +88,7 @@ def kindaRandomOracle(key0, key1):
    But it is scrypt.
    '''
 
-   val = scrypt.hash(key0, key1)
+   val = scrypt.hash(key0.encode('utf8'), key1.encode('utf8'))
    return val
 
 def str2int(ss):
