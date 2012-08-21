@@ -28,8 +28,8 @@ gen('lincoln', 'vampire-slayer')
 gen('lincoln', 'vampire-slayer', n=3)
 # u'cows changes province'
 
-gen('lincoln', 'vampire-slayer0', n=3)
-#u'tried 96 stationary 0E stump'
+gen('lincoln', 'vampire-slayer', n=3, hexSep=True)
+#u'cows 3F changes 9F province'
 ```
 
 Key features to note:

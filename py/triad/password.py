@@ -7,14 +7,13 @@ import string
 import binascii
 import scrypt
 
-def generate(vocab, key0, key1, n=5):
+def generate(vocab, key0, key1, n=5, hexSep=False):
    '''
    Use scrypt's hash function on our password/salt to generate 64 bytes
    of so-called entropy.  Then use this to choose several (default: 4)
    of the vocabulary words.
 
-   In the special case where one of the characters of the second password
-   is a number, bytes of capitalized hex (e.g. 'C7') will be inserted
+   When desired, bytes of capitalized hex (e.g. 'C7') can be inserted
    between words.
 
    Note: asking for more words doesn't does not change the hash function call,
@@ -31,12 +30,7 @@ def generate(vocab, key0, key1, n=5):
 
    entropy = kindaRandomOracle(key0, key1)
 
-   sep = False
-   for ch in key1:
-      if ch in string.digits:
-         sep = True
-
-   if sep:
+   if hexSep:
       # leave room for hex octets between the words
       bytesPerWord = (len(entropy) - (nn-1)) / nn
       mm = nn * 2 - 1
@@ -56,7 +50,7 @@ def generate(vocab, key0, key1, n=5):
 
    for ii in range(mm):
       # hex octet separators
-      if sep and ii % 2 == 1:
+      if hexSep and ii % 2 == 1:
          start = end
          end   = end + 1
          byte = binascii.hexlify(entropy[int(start)])

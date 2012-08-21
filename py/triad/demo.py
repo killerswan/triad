@@ -18,7 +18,7 @@ def makeGenerator(vocabList):
    #words = loadWords('demo.json')
    words = loadWords(vocabList)
 
-   def gen(key0, key1, n=5):
-      return generate(words, key0, key1, n)
+   def gen(key0, key1, n=5, hexSep=False):
+      return generate(words, key0, key1, n, hexSep)
 
    return gen
