@@ -1,8 +1,7 @@
 Kevin Cantu, July 2012
 
 This password generator uses scrypt's hash function to choose several
-words using a given source of vocabulary, given only two keyphrases.
-
+words using a given source of vocabulary, given only two keyphrases.  
 It is named for its inspiration in an episode of Sherlock Holmes, where
 the fictional triads used numerical codes to look up vocabulary from a common book.
 
