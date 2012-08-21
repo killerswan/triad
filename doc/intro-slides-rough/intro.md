@@ -114,6 +114,7 @@ seed -> !random number -> pwd
 
 # 16. XKCD:
 a. it is OK if they're not just unintelligible garbage
+http://xkcd.com/936/
 
 
 
