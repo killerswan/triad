@@ -18,17 +18,17 @@ python
 
 Then, in Python:
 ```python
-from triad.demo import makeGenerator
+from triad.demo import Generator
 
-gen = makeGenerator('books/pg2009.json')
+gg = Generator('books/pg2009.json')
 
-gen('lincoln', 'vampire-slayer')
+gg.gen('lincoln', 'vampire-slayer')
 # u'cows mounting molecules theoretically oftener'
 
-gen('lincoln', 'vampire-slayer', n=3)
+gg.gen('lincoln', 'vampire-slayer', n=3)
 # u'cows changes province'
 
-gen('lincoln', 'vampire-slayer', n=3, hexSep=True)
+gg.gen('lincoln', 'vampire-slayer', n=3, hexSep=True)
 #u'cows 3F changes 9F province'
 ```
 

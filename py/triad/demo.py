@@ -8,17 +8,14 @@ from triad.words    import loadWords
 from triad.password import generate
 
 #def makeGenerator(book):
-def makeGenerator(vocabList):
+class Generator(object):
    '''
    generate and save the list of words from an English book,
    then load the words and return a password generator
    '''
+   def __init__(self, vocabList):
+      self.words = loadWords(vocabList)
 
-   #bookToWords(book, 'demo.json')
-   #words = loadWords('demo.json')
-   words = loadWords(vocabList)
+   def gen(self, key0, key1, n=5, hexSep=False):
+      return generate(self.words, key0, key1, n, hexSep)
 
-   def gen(key0, key1, n=5, hexSep=False):
-      return generate(words, key0, key1, n, hexSep)
-
-   return gen
