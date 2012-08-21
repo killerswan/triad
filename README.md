@@ -1,5 +1,3 @@
-Kevin Cantu, July 2012
-
 This password generator uses scrypt's hash function to choose several
 words using a given source of vocabulary, given only two keyphrases.  
 It is named for its inspiration in an episode of Sherlock Holmes, where
@@ -85,5 +83,7 @@ for a in vocab:
                " ".join([a,b,c,d,e])
 ```
 
-I welcome criticism, though, via me@kevincantu.org!
+I welcome criticism, though: email me!
+
+-- Kevin Cantu <me@kevincantu.org>
 
