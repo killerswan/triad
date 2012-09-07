@@ -10,7 +10,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 #from kivy.core.clipboard import Clipboard
-#from triad.demo import Generator
+from triad.demo import Generator
 
 # top level box
 layout = BoxLayout(orientation='vertical')
@@ -31,10 +31,10 @@ gen0 = TextInput(text='<generated password>')
 layout.add_widget(gen0)
 
 # define the password generator
-#generator = Generator('pg2009.json')
+generator = Generator('pg2009.json')
 def generatePassOnText(instance, value):
-#   gen0.text = generator.gen(key0.text, key1.text)
-   gen0.text = "banana!"
+   gen0.text = generator.gen(key0.text, key1.text)
+#   gen0.text = "banana!"
 
 # bind the password generator to text entry
 key0.bind(text=generatePassOnText)

@@ -31,9 +31,9 @@ including the Ubuntu packages:
 Not listed there, but required, was `python-pip`.
 Then `cython` and `jinja2` should be installed.
 
-Finally, in the python-for-android directory, to build the system: 
+Finally, in the python-for-android directory, to build the system (order is important): 
 ```
-./distribute.sh -m "kivy"
+./distribute.sh -m "openssl scrypt triad kivy"
 cd dist/default
 ```
 
