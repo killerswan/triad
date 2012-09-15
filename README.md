@@ -83,6 +83,8 @@ for a in vocab:
                " ".join([a,b,c,d,e])
 ```
 
+Using five words provides more than 2^65 choices, seven more than 2^91, ten more than 2^131, and twenty more than 2^256...
+
 I welcome criticism, though: email me!
 
 -- Kevin Cantu <me@kevincantu.org>
