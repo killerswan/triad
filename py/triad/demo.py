@@ -7,7 +7,6 @@ from triad.words_en import bookToWords
 from triad.words    import loadWords
 from triad.password import generate
 
-#def makeGenerator(book):
 class Generator(object):
    '''
    generate and save the list of words from an English book,

@@ -7,3 +7,6 @@ setup(
     license='ISC License',
     long_description=open('README.md').read(),
 )
+
+# TODO: hook nose up to `test` using something better than distutils
+

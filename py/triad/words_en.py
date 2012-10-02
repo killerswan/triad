@@ -6,6 +6,7 @@ June 2012
 import string
 import json
 import codecs
+from triad.words import saveWords
 
 def bookToWords(bookPath, wordsPath):
    '''
@@ -15,10 +16,7 @@ def bookToWords(bookPath, wordsPath):
 
    words = openBook(bookPath)
    uwords = uniqueWords(words)
-   jwords = json.dumps(uwords, indent=3) + "\n"
-   out = codecs.open(wordsPath, "w", "utf-8")
-   out.write(jwords)
-   out.close()
+   saveWords(wordsPath, uwords)
 
 def uniqueWords(words):
    uniques = {}
