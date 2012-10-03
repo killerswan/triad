@@ -3,9 +3,8 @@ using a given source of vocabulary, given only two keyphrases.  It is named
 for its inspiration in an episode of Sherlock Holmes, where the fictional triads
 used numerical codes to look up vocabulary from a common book.
 
-In the special case where one of the characters of the second password
-is a number, bytes of capitalized hex (e.g. 'C7') will be inserted
-between words.
+The number of words can be selected, and bytes of capitalized hex (e.g. 'C7')
+can also be inserted between words.
 
 To install the Python version in Linux, and then start the demo
 (with Darwin's Origin of Species for vocabulary):
